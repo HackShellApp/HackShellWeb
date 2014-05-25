@@ -34,3 +34,11 @@ var cd = function(cb) {
 	}
 	cb(null,'TODO');
 }
+
+var cat = function (file, cb) {
+	if(file.type === 'file') {
+		return file.data;
+	} else {
+		return cb('That is not a file')
+	}
+}
