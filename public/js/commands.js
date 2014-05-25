@@ -4,6 +4,7 @@ var fullFile;
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
+	var params = inParts.shift().join(' ');
 	if(cmd === 'ls' || cmd === 'dir') {
 		// List directory
 	} else if(cmd === 'cd') {
@@ -17,7 +18,13 @@ var commands = function (input, cb) {
 	} else if(cmd === 'mail') {
 		// Mail
 	} else if(cmd === 'cat') {
-		// Echo file
+		cat(params, function(err,res) {
+			if (err) {
+				return cb(err);
+			} else {
+				return cb(null, res);
+			}
+		})
 	} else {
 		return cb('No such function');
 	}
