@@ -1,10 +1,12 @@
+var curDir = "/home"
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
 	if(cmd === 'ls' || cmd === 'dir') {
 		// List directory
 	} else if(cmd === 'cd') {
-		// Change Directory
+		var cdr = cd(inParts[1]);
+        return cb(cdr[0], cdr[1]);
 	} else if(cmd === 'dl') {
 		// Download File
 	} else if(cmd === 'exit' || cmd === 'quit') {
@@ -28,11 +30,16 @@ var help = function(cb) {
 	return info;
 }
 
-var cd = function(cb) {
-	if(!curDir) {
+var cd = function(curDir, newdir) {
+    if (curDir === "error"){
+        return ["OMG ERROR!!!", null];
+    }
+    if((!curDir) || (curDir === "..")){
 		curDir = '/home';
-	}
-	cb(null,'TODO');
+	} else {
+        curDir = "BLEGH";
+    }
+    return [null, curDir];
 }
 
 var cat = function (file, cb) {
