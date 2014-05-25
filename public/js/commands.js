@@ -25,6 +25,11 @@ var dirs = {
     "~" : "stuff",
     "~/stuff" : "files",
     "~/stuff/files" : "test"}
+var userfiles = {
+    "~" : "readme",
+    "~/readme" : "fuckingshitballs"
+}
+    
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
@@ -67,8 +72,10 @@ var ls = function(dir) {
     if (!dir){
         dir = curDir;
     }
-    var ret = dirs[dir];
-    return [null, ret];
+    var dirlist = dirs[dir];
+    var filelist = userfiles[dir];
+    var list = [dirlist, filelist];
+    return [null, list];
 }
 
 var cd = function(dir) {
