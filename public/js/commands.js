@@ -1,3 +1,6 @@
+var curDir = fileStructure.root.home;
+var fullFile;
+
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
@@ -36,6 +39,24 @@ var cd = function(cb) {
 }
 
 var cat = function (file, cb) {
+	file = file.replace('.', '-');
+	if (file.indexOf('/') > 1) {
+		file = file.split('/');
+		var fullFile = curDir;
+		for (i = 0; i < file.length-1; i++) {
+			fullFile = fullFile.file[i];
+		}
+		return cb(null, fullFile.data);
+	} else if (file.indexOf('/') > -1) {
+		fullFile = fileStructure;
+		for (i = 1; i < file.length-1; i++) {
+			fullFile = fullFile.file[i];
+		}
+		return cb(null, fullFile.data);
+	} else {
+		fullFile = curDir.file;
+		cb(null, fullFile.data);
+	}
 	if(file.type === 'file') {
 		return file.data;
 	} else {
