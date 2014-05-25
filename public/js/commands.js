@@ -1,4 +1,4 @@
-var curDir = "/home"
+var curDir = "~"
 var fileStructure = {
 	"root": {
 		type: "directory",
@@ -21,6 +21,9 @@ var fileStructure = {
 		},
 	}
 }
+var dirs = {
+    "~" : "stuff",
+    "~/stuff" : "files"}
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
@@ -60,20 +63,25 @@ exit - Quit the terminal.";
 }
 
 var ls = function(dir) {
-    var ret = fileStructure[dir].children;
+    if (!dir){
+        dir = curDir;
+    }
+    var ret = dirs[dir];
     return [null, ret];
 }
 
-var cd = function(newDir) {
-    console.log(newDir);
-    if (!newDir) {
-		curDir = '/home';
-    } else if ((newDir.charAt(0) === "/") || (newDir.charAt(0) === "~")){
-        return [null, newDir.charAt(0)]
-    } else {
-        return fileStructure.curDir.newDir;
+var cd = function(dir) {
+    if (!dir){
+        dir = curDir;
     }
-    return [null, curDir];
+    console.log(dir);
+    console.log(curDir);
+    if (dir.charAt(0) === ("/" || "~")){
+        var ret = dirs[dir];
+    } else {
+        var ret = dirs[dir];
+    }
+    
 }
 
 var cat = function (file, cb) {
