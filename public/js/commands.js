@@ -23,7 +23,8 @@ var fileStructure = {
 }
 var dirs = {
     "~" : "stuff",
-    "~/stuff" : "files"}
+    "~/stuff" : "files",
+    "~/stuff/files" : "test"}
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
@@ -71,17 +72,15 @@ var ls = function(dir) {
 }
 
 var cd = function(dir) {
-    if (!dir){
-        dir = curDir;
-    }
-    console.log(dir);
-    console.log(curDir);
-    if (dir.charAt(0) === ("/" || "~")){
-        var ret = dirs[dir];
+    //curDir = dirs[dir];
+    //console.log(curDir.split("/")[0]);
+    if (dir === "..") {
+        finDir = curDir.split("/").pop();
     } else {
-        var ret = dirs[dir];
-    }
-    
+        console.log(dirs[dir]);
+        curDir = curDir + "/" + dir;
+    } 
+    return [null, curDir];
 }
 
 var cat = function (file, cb) {
