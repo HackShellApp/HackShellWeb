@@ -35,6 +35,10 @@ var cd = function(cb) {
 	cb(null,'TODO');
 }
 
+var exit = function (cb) {
+  self.close ();
+}
+
 var cat = function (file, cb) {
 	if(file.type === 'file') {
 		return file.data;
