@@ -1,5 +1,5 @@
 var curDir = "/home"
-var fileStructure
+var fileStructure = fileStructure
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
@@ -27,12 +27,18 @@ var commands = function (input, cb) {
 // cb(err, data);
 
 var help = function(cb) {
-	var info = "ls - List files in current directory.\ncd <dir> - Change to directory <dir>.\ndl <file> - Download file <file> from remote server.\nhelp - This.\nmail - Read your mail.\ncat - Output the contents of a file.\nexit - Quit the terminal.";
+	var info = " ls - List files in current directory.\n \
+cd <dir> - Change to directory <dir>.\n \
+dl <file> - Download file <file> from remote server.\n \
+help - This.\n \
+mail - Read your mail.\n \
+cat - Output the contents of a file.\n \
+exit - Quit the terminal.";
 	return info;
 }
 
 var cd = function(curDir, newdir) {
-    console.log(fileStructure)
+    console.log(JSON.stringify(fileStructure));
     if ((curDir.charAt(0) === "/") || (curDir.charAt(0) === "~")){
         return [null, curDir.charAt(0)]
     } else if(!curDir){
