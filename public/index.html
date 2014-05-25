@@ -5,17 +5,18 @@
         <link rel="stylesheet" type="text/css" href="stylesheets/jquery.terminal.css">
     </head>
     
-    <body>
+    <body bgcolor=#111>
         <div id="terminal">
         </div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js">
         </script>
-        <script src="http://terminal.jcubic.pl/js/jquery.terminal-0.8.7.min.js">
+        <script src="/js/jquery.term.js">
         </script>
         <script src="/js/commands.js">
         <script src="/js/filestructure.js"></script>
         </script>
         <script>
+            var pixheight = window.innerHeight - 25;
             $('#terminal').terminal(function(command,term){
                 if(command !== '') {
                     commands(command, function(err, result) {
@@ -29,9 +30,10 @@
             }, {
                 greetings: 'Welcome to HackShell!',
                 name: 'HackShell',
-                height: 500,
+                //height: pixheight,
                 prompt: '$'
             });
+            $('#terminal').css('height', pixheight);
         </script>
     </body>
 

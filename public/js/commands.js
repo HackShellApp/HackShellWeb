@@ -10,7 +10,7 @@ var commands = function (input, cb) {
 	} else if(cmd === 'exit' || cmd === 'quit') {
 		// Quit
 	} else if(cmd === 'help' || cmd === '?') {
-		return cb(help());
+		return cb(null, help());
 	} else if(cmd === 'mail') {
 		// Mail
 	} else if(cmd === 'cat') {
