@@ -1,5 +1,26 @@
 var curDir = "/home"
-var fileStructure = fileStructure
+var fileStructure = {
+	"root": {
+		type: "directory",
+		children: ["home"],
+		data: null,
+		"home": {
+			type: "directory",
+			children: ["test.txt", "readme.txt"],
+			data: null,
+			"test-txt": {
+				type: "file",
+				children: [null],
+				data: "This is a test.",
+			},
+			"readme-txt": {
+				type: "file",
+				children: [null],
+				data: "Welcome to HackShell! Enjoy your stay.",
+			},
+		},
+	}
+}
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
@@ -37,12 +58,14 @@ exit - Quit the terminal.";
 	return info;
 }
 
-var cd = function(curDir, newdir) {
-    console.log(JSON.stringify(fileStructure));
-    if ((curDir.charAt(0) === "/") || (curDir.charAt(0) === "~")){
-        return [null, curDir.charAt(0)]
-    } else if(!curDir){
+var cd = function(newDir) {
+    console.log(newDir);
+    if (!newDir) {
 		curDir = '/home';
+    } else if ((newDir.charAt(0) === "/") || (newDir.charAt(0) === "~")){
+        return [null, newDir.charAt(0)]
+    } else {
+        return fileStructure.curDir.newDir;
     }
     return [null, curDir];
 }
