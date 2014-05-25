@@ -27,7 +27,9 @@ var dirs = {
     "~/stuff/files" : "test"}
 var userfiles = {
     "~" : "readme",
-    "~/readme" : "fuckingshitballs"
+    "~/readme" : "fuckingshitballs",
+    "~/stuff/files" : "lol.txt",
+    "~/stuff/files/lol.txt" : "haha lol :P"
 }
     
 var commands = function (input, cb) {
@@ -49,6 +51,8 @@ var commands = function (input, cb) {
 		// Mail
 	} else if(cmd === 'cat') {
 		// Echo file
+        var catr = cat(inParts[1]);
+        return cb(catr[0], catr[1]);
 	} else {
 		return cb('No such function');
 	}
@@ -92,10 +96,7 @@ var cd = function(dir) {
     return [null, curDir];
 }
 
-var cat = function (file, cb) {
-	if(file.type === 'file') {
-		return file.data;
-	} else {
-		return cb('That is not a file')
-	}
+var cat = function (file) {
+    file = curDir + "/" + file;
+    return [null, userfiles[file]]
 }
