@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fuck You</title>
+        <link rel="stylesheet" type="text/css" href="http://terminal.jcubic.pl/css/jquery.terminal.css">
+    </head>
+    
+    <body>
+        <div id="terminal">
+        </div>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+        </script>
+        <script src="http://terminal.jcubic.pl/js/jquery.terminal-0.8.7.min.js">
+        </script>
+        <script src="/js/commands.js">
+        <script src="/js/filestructure.js"></script>
+        </script>
+        <script>
+            $('#terminal').terminal(function(command,term){
+                if(command !== '') {
+                    commands(command, function(err, result) {
+                        if (err) {
+                            term.error(err);
+                        } else {
+                            term.echo(result);
+                        }
+                    });
+                }
+            }, {
+                greetings: 'Welcome to HackShell!',
+                name: 'HackShell',
+                height: 500,
+                prompt: '$'
+            });
+        </script>
+    </body>
+
+</html>
