@@ -32,16 +32,20 @@ var userfiles = {
     "~/stuff/files/lol.txt" : "haha lol :P"
 }
     
+var curDir = fileStructure.root.home;
+var fullFile;
+
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
+	var params = inParts.shift().join(' ');
 	if(cmd === 'ls' || cmd === 'dir') {
 		var lsr = ls(inParts[1]);
         return cb(lsr[0], lsr[1]);
 	} else if(cmd === 'cd') {
 		var cdr = cd(inParts[1]);
         return cb(cdr[0], cdr[1]);
-	} else if(cmd === 'dl') {
+	} else if(cmd === 'wget') {
 		// Download File
 	} else if(cmd === 'exit' || cmd === 'quit') {
 		// Quit
@@ -50,9 +54,13 @@ var commands = function (input, cb) {
 	} else if(cmd === 'mail') {
 		// Mail
 	} else if(cmd === 'cat') {
-		// Echo file
-        var catr = cat(inParts[1]);
-        return cb(catr[0], catr[1]);
+		cat(params, function(err,res) {
+			if (err) {
+				return cb(err);
+			} else {
+				return cb(null, res);
+			}
+		});
 	} else {
 		return cb('No such function');
 	}
@@ -99,4 +107,32 @@ var cd = function(dir) {
 var cat = function (file) {
     file = curDir + "/" + file;
     return [null, userfiles[file]]
+var exit = function (cb) {
+  self.close ();
+}
+
+var cat = function (file, cb) {
+	file = file.replace('.', '-');
+	if (file.indexOf('/') > 1) {
+		file = file.split('/');
+		var fullFile = curDir;
+		for (i = 0; i < file.length-1; i++) {
+			fullFile = fullFile.file[i];
+		}
+		return cb(null, fullFile.data);
+	} else if (file.indexOf('/') > -1) {
+		fullFile = fileStructure;
+		for (i = 1; i < file.length-1; i++) {
+			fullFile = fullFile.file[i];
+		}
+		return cb(null, fullFile.data);
+	} else {
+		fullFile = curDir.file;
+		cb(null, fullFile.data);
+	}
+	if(file.type === 'file') {
+		return file.data;
+	} else {
+		return cb('That is not a file')
+	}
 }
