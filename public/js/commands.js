@@ -1,4 +1,5 @@
 var curDir = "/home"
+var fileStructure
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
@@ -31,13 +32,11 @@ var help = function(cb) {
 }
 
 var cd = function(curDir, newdir) {
-    if (curDir === "error"){
-        return ["OMG ERROR!!!", null];
-    }
-    if((!curDir) || (curDir === "..")){
+    console.log(fileStructure)
+    if ((curDir.charAt(0) === "/") || (curDir.charAt(0) === "~")){
+        return [null, curDir.charAt(0)]
+    } else if(!curDir){
 		curDir = '/home';
-	} else {
-        curDir = "BLEGH";
     }
     return [null, curDir];
 }
