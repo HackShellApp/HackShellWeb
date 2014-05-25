@@ -5,7 +5,7 @@ var commands = function (input, cb) {
 		// List directory
 	} else if(cmd === 'cd') {
 		// Change Directory
-	} else if(cmd === 'dl') {
+	} else if(cmd === 'wget') {
 		// Download File
 	} else if(cmd === 'exit' || cmd === 'quit') {
 		// Quit
