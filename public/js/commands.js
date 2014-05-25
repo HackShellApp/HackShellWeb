@@ -10,7 +10,7 @@ var commands = function (input, cb) {
 	} else if(cmd === 'exit' || cmd === 'quit') {
 		// Quit
 	} else if(cmd === 'help' || cmd === '?') {
-		// Help
+		return cb(help());
 	} else if(cmd === 'mail') {
 		// Mail
 	} else if(cmd === 'cat') {
@@ -25,7 +25,7 @@ var commands = function (input, cb) {
 
 var help = function(cb) {
 	var info = "ls - List files in current directory.\ncd <dir> - Change to directory <dir>.\ndl <file> - Download file <file> from remote server.\nhelp - This.\nmail - Read your mail.\ncat - Output the contents of a file.\nexit - Quit the terminal.";
-	cb(null, info);
+	return info;
 }
 
 var cd = function(cb) {
