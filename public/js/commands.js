@@ -64,9 +64,7 @@ var commands = function (input, cb) {
 var help = function(cb) {
 	var info = " ls - List files in current directory.\n \
 cd <dir> - Change to directory <dir>.\n \
-wget <file> - Download file <file> from remote server.\n \
 help - This.\n \
-mail - Read your mail.\n \
 cat - Output the contents of a file.\n \
 exit - Quit the terminal.";
 	return info;
