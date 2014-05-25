@@ -75,7 +75,8 @@ var cd = function(dir) {
     //curDir = dirs[dir];
     //console.log(curDir.split("/")[0]);
     if (dir === "..") {
-        finDir = curDir.split("/").pop();
+        finDir = curDir.split("/");
+        finDir = finDir.pop().join("/");
     } else {
         console.log(dirs[dir]);
         curDir = curDir + "/" + dir;
