@@ -8,7 +8,8 @@ var commands = function (input, cb) {
 	if(cmd === 'ls' || cmd === 'dir') {
 		// List directory
 	} else if(cmd === 'cd') {
-		// Change Directory
+		var cdr = cd(inParts[1]);
+        return cb(cdr[0], cdr[1]);
 	} else if(cmd === 'wget') {
 		// Download File
 	} else if(cmd === 'exit' || cmd === 'quit') {
@@ -38,11 +39,16 @@ var help = function(cb) {
 	return info;
 }
 
-var cd = function(cb) {
-	if(!curDir) {
+var cd = function(curDir, newdir) {
+    if (curDir === "error"){
+        return ["OMG ERROR!!!", null];
+    }
+    if((!curDir) || (curDir === "..")){
 		curDir = '/home';
-	}
-	cb(null,'TODO');
+	} else {
+        curDir = "BLEGH";
+    }
+    return [null, curDir];
 }
 
 var exit = function (cb) {
