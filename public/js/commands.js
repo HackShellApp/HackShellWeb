@@ -1,40 +1,8 @@
 var curDir = "~"
-var fileStructure = {
-	"root": {
-		type: "directory",
-		children: ["home"],
-		data: null,
-		"home": {
-			type: "directory",
-			children: ["test.txt", "readme.txt"],
-			data: null,
-			"test-txt": {
-				type: "file",
-				children: [null],
-				data: "This is a test.",
-			},
-			"readme-txt": {
-				type: "file",
-				children: [null],
-				data: "Welcome to HackShell! Enjoy your stay.",
-			},
-		},
-	}
-}
-/*var dirs = {
-    "~" : "stuff",
-    "~/stuff" : "files",
-    "~/stuff/files" : "test"}
-var userfiles = {
-    "~" : "readme",
-    "~/readme" : "random",
-    "~/stuff/files" : "lol.txt",
-    "~/stuff/files/lol.txt" : "haha lol :P"
-}*/
 
 var baseUrl = 'http://' + window.location.host;
 var dirs = {
-    "~" : "Missions",
+    "~" : "Missions/",
     "~/Missions" : ""
 }
 var userfiles = {
@@ -122,6 +90,9 @@ var ls = function(dir) {
 var cd = function(dir) {
     //curDir = dirs[dir];
     //console.log(curDir.split("/")[0]);
+    if (dir.slice(-1) === "/") {
+    	dir = dir.substring(0, dir.length - 1);
+    }
     if (dir === "..") {
         finDir = curDir.split("/");
         finDir.pop();
