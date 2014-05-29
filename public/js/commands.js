@@ -27,7 +27,7 @@ var fileStructure = {
     "~/stuff/files" : "test"}
 var userfiles = {
     "~" : "readme",
-    "~/readme" : "fuckingshitballs",
+    "~/readme" : "random",
     "~/stuff/files" : "lol.txt",
     "~/stuff/files/lol.txt" : "haha lol :P"
 }*/
@@ -56,7 +56,7 @@ When you have aquired his password, use the 'ssh' command like so to get into hi
 ssh mgroves@cortex.pizza <password for login>"
 
 }
-    
+
 var commands = function (input, cb) {
 	var inParts = input.split(' ');
 	var cmd = inParts[0];
@@ -73,8 +73,10 @@ var commands = function (input, cb) {
 //        });
         var sshr = ssh(inParts[1], inParts[2], cb);
         //return cb(sshr[0], sshr[1]);
-	} else if(cmd === 'exit' || cmd === 'quit') {
+/*
+  } else if(cmd === 'exit' || cmd === 'quit') {
 		// Quit
+*/
 	} else if(cmd === 'help' || cmd === '?') {
 		return cb(null, help());
 	} else if(cmd === 'mail') {
@@ -103,7 +105,6 @@ var help = function(cb) {
 cd <dir> - Change to directory <dir>.\n \
 help - This.\n \
 cat <file> - Output the contents of a file.\n \
-exit - Quit the terminal.\n \
 To get started, use the ls command to find any files, and cat to read them";
 	return info;
 }
@@ -128,7 +129,7 @@ var cd = function(dir) {
     } else {
         console.log(dirs[dir]);
         curDir = curDir + "/" + dir;
-    } 
+    }
     return [null, curDir];
 }
 
