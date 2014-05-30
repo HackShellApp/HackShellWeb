@@ -31,20 +31,15 @@ var commands = function (input, cb) {
     if(cmd === 'ls' || cmd === 'dir') {
 		var lsr = ls(inParts[1]);
         return cb(lsr[0], lsr[1]);
-	} else if(cmd === 'cd' || cmd === "cd..") {
-		var cdr = cd(inParts[1]);
+	} else if(cmd === 'cd' || cmd === 'cd..') {
+		if (cmd === 'cd..') {
+            var cdr = cd("..")
+        } else {
+            var cdr = cd(inParts[1]);
+        }
         return cb(cdr[0], cdr[1]);
 	} else if(cmd === 'ssh') {
-		// ssh
-//ssh(inParts[1], inParts[2], function(err, res) {
-//           return cb(err,res);
-//        });
         var sshr = ssh(inParts[1], inParts[2], cb);
-        //return cb(sshr[0], sshr[1]);
-/*
-  } else if(cmd === 'exit' || cmd === 'quit') {
-		// Quit
-*/
 	} else if(cmd === 'help' || cmd === '?') {
 		return cb(null, help());
 	} else if(cmd === 'mail') {
@@ -74,7 +69,7 @@ cd <dir> - Change to directory <dir>.\n \
 help - This.\n \
 cat <file> - Output the contents of a file.\n \
 To get started, use the ls command to find any files, and cat to read them";
-	return info;
+	return [null, info];
 }
 
 var ls = function(dir) {
@@ -83,29 +78,34 @@ var ls = function(dir) {
     }
     var dirlist = dirs[dir];
     var filelist = userfiles[dir];
-    var list = [dirlist, filelist];
+    if (! dirlist){
+        var list = [filelist];
+    } else if (! filelist) {
+        var list = [dirlist];
+    } else {
+        var list = [dirlist + "\n" + filelist];
+    }
     return [null, list];
 }
 
 var cd = function(dir) {
-    //curDir = dirs[dir];
-    //console.log(curDir.split("/")[0]);
+    if (! dir) {
+        curDir = "~";
+        return [null, null];
+    }
     if (dir.slice(-1) === "/") {
     	dir = dir.substring(0, dir.length - 1);
     }
-    if (dir === ".." || cmd === "cd..") {
+    if (dir === "..") {
         if (curDir === "~") {
             return ["Restricted, you may not go above your home directory"];
         }
             finDir = curDir.split("/");
             finDir.pop();
             curDir = finDir.join("/");
-        }
-    } else if (dir) {
+    } else {
         console.log(dirs[dir]);
         curDir = curDir + "/" + dir;
-    } else {
-    	return ["No folder here!"];
     }
     return [null, curDir];
 }
