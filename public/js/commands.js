@@ -31,7 +31,7 @@ var commands = function (input, cb) {
     if(cmd === 'ls' || cmd === 'dir') {
 		var lsr = ls(inParts[1]);
         return cb(lsr[0], lsr[1]);
-	} else if(cmd === 'cd') {
+	} else if(cmd === 'cd' || cmd === "cd..") {
 		var cdr = cd(inParts[1]);
         return cb(cdr[0], cdr[1]);
 	} else if(cmd === 'ssh') {
@@ -93,13 +93,19 @@ var cd = function(dir) {
     if (dir.slice(-1) === "/") {
     	dir = dir.substring(0, dir.length - 1);
     }
-    if (dir === "..") {
-        finDir = curDir.split("/");
-        finDir.pop();
-        curDir = finDir.join("/");
-    } else {
+    if (dir === ".." || cmd === "cd..") {
+        if (curDir === "~") {
+            return ["Restricted, you may not go above your home directory"];
+        }
+            finDir = curDir.split("/");
+            finDir.pop();
+            curDir = finDir.join("/");
+        }
+    } else if (dir) {
         console.log(dirs[dir]);
         curDir = curDir + "/" + dir;
+    } else {
+    	return ["No folder here!"];
     }
     return [null, curDir];
 }
