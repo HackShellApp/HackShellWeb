@@ -24,6 +24,10 @@
     margin: 0;
     padding: 0;
 }
+/*.scanlines {
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAADElEQVQImWNggAJjAAA9ADTPmgqGAAAAAElFTkSuQmCC) repeat;
+    z-index: 100000;
+}*/
 .cmd > .clipboard {
     position: fixed;
 }
@@ -93,9 +97,32 @@
 .cmd .prompt {
     float: left;
 }
+$scanLineWidth: 1px;
+.scanLines {
+  /*** WEBKIT ***/
+  background: -webkit-repeating-linear-gradient(
+      top,
+      transparent 0px,
+      transparent $scanLineWidth,
+      rgba(0,0,0,0.25) $scanLineWidth,
+      rgba(0,0,0,0.25) $scanLineWidth*2
+    );
+  -webkit-background-size: 100% $scanLineWidth*2;
+    /** MOZILLA **/
+      background: -moz-repeating-linear-gradient(
+      top,
+      transparent 0px,
+      transparent $scanLineWidth,
+      rgba(0,0,0,0.25) $scanLineWidth,
+      rgba(0,0,0,0.25) $scanLineWidth*2
+    );
+  -moz-background-size: 100% $scanLineWidth*2;
+}
 .terminal, .cmd {
-    font-family: FreeMono, monospace;
+    font-family: Courier New, monospace;
     color: #1f1;
+    text-shadow: 2px 1px 1px #F05,
+                 -2px -1px 1px #05F;
     background-color: #111;
     font-size: 20px;
     line-height: 25px;
