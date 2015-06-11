@@ -3,6 +3,7 @@ HackShell
 
 **HackShell** is a terminal simulator hacking game built in a 24-hour period at [CodeDay LA Spring 2014](http://codeday.org). 
 
+
 The goal of the project was to create a fun game that introduces new users to the command line, through interactive levels where you play as a corporate hacker completing daring missions of corporate espionage. Learn common terminal commands and level up in this thrilling Cyberpunk adventure!
 
 ---
